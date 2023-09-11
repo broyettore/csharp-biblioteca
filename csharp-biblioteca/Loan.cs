@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace csharp_biblioteca
 {
-    public class Loan : User
+    public class Loan
     {
+        public User User { get; set; }
         public Document Document { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime DueDate { get; set; }
 
-        public Loan(string name, string surname,Document document,DateTime startDate,DateTime dueDate) : base(name, surname)
+        public Loan(User user,Document document,DateTime startDate,DateTime dueDate)
         {
+            User = user;
             Document = document;
             StartDate = startDate;
             DueDate = dueDate;

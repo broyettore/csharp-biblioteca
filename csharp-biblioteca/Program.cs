@@ -18,17 +18,18 @@
             User user4 = new("Hera", "Ràmon", "p3Uj89BGcf", "4563456789");
             User user5 = new("Stephen", "King", "fUnd78TJsR", "3465623478");
 
-            Loan loan1 = new("Luis", "Icar", book2, DateTime.Now, DateTime.Now);
-            Loan loan2 = new("Fary", "Lemon", book1, DateTime.Now, DateTime.Now);
-            Loan loan3 = new("Tom", "Cruise", book3, DateTime.Now, DateTime.Now);
-            Loan loan4 = new("Hera", "Ràmon", dvd3, DateTime.Now, DateTime.Now);
-            Loan loan5 = new("Stephen", "King", dvd2, DateTime.Now, DateTime.Now);
+            Loan loan1 = new(user1, book2, DateTime.Now, DateTime.Now.AddDays(5));
+            Loan loan2 = new(user2, book1, DateTime.Now, DateTime.Now.AddDays(5));
+            Loan loan3 = new(user3, book3, DateTime.Now, DateTime.Now.AddDays(5));
+            Loan loan4 = new(user4, dvd3, DateTime.Now, DateTime.Now.AddDays(5));
+            Loan loan5 = new(user5, dvd2, DateTime.Now, DateTime.Now.AddDays(5));
 
 
             Library library1 = new Library();
             library1.AddUsers(user1);
             library1.AddDocs(dvd1);
             library1.AddLoan(loan1);
+            library1.RegisterLoan(user1, dvd1, DateTime.Now, DateTime.Now.AddDays(5));
 
             foreach (var item in library1.SearchDocumentsByTitle("rush"))
             {
@@ -37,7 +38,7 @@
 
             foreach (var item in library1.SearchLoansByUser("luis", "icar"))
             {
-               Console.WriteLine($"Found: {item.Name} {item.Surname}");
+               Console.WriteLine($"Found: {item.User.Name} {item.User.Surname}");
             }  
 
         }

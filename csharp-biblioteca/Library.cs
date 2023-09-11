@@ -33,14 +33,39 @@ namespace csharp_biblioteca
             Loans.Add(loan);
         }
 
-        //public void RegisterLoan(Loan loan)
-        //{
-        //    Users.Add(loan);
-        //}
+       public void RegisterLoan(User user, Document document, DateTime startDate, DateTime endDate)
+        {
+            if(!Users.Contains(user))
+            {
+                Console.WriteLine("User not registered");
+                return;
+            } 
+            
+            if(!Documents.Contains(document))
+            {
+                Console.WriteLine("Document not available");
+                return;
+            }
+
+            foreach (var key in Loans)
+            {
+                if(key.Document == document && key.DueDate >= key.StartDate)
+                {
+                    Console.WriteLine("Document has already been loaned");
+                    return;
+                }
+            }
+
+            var loan = new Loan(user, document, startDate, endDate);
+            Loans.Add(loan);
+
+            Console.WriteLine("Loan registered successfully");
+
+        }
 
         public List<Loan> SearchLoansByUser(string name, string surname)
         {
-            var findUserLoan = Loans.FindAll(loan => loan.Name.ToLower() == name.ToLower() && loan.Surname.ToLower() == surname.ToLower());
+            var findUserLoan = Loans.FindAll(loan => loan.User.Name.ToLower() == name.ToLower() && loan.User.Surname.ToLower() == surname.ToLower());
 
             if (findUserLoan.Count > 0)
             {
