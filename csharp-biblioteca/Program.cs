@@ -30,6 +30,7 @@
             library1.AddUsers(user2);
             library1.AddUsers(user3);
             library1.AddDocs(dvd1);
+            library1.AddDocs(dvd1);
             library1.AddDocs(dvd2);
             library1.RegisterLoan(user3, dvd2, DateTime.Now, DateTime.Now.AddDays(5));
 
