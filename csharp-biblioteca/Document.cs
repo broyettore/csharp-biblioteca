@@ -37,5 +37,13 @@ namespace csharp_biblioteca
 
             return randNumber;
         }
+
+        public override string ToString()
+        {
+            return $"Document ${this.Code}:\n" +
+                $"\t-Title: {this.Title}\n" +
+                $"\t-Year: {this.Year}\n" +
+                $"\t-Author: {this.Author}\n";
+        }
     }
 }

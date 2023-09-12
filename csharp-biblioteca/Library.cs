@@ -9,19 +9,19 @@ namespace csharp_biblioteca
     public class Library
     {
         public List<User> Users { get; set; }
-        public List<Document> Documents {  get; set; }
+        public Dictionary<string, Document> Documents {  get; set; }
         public List<Loan> Loans { get; set; }
 
         public Library()
         {
-            Documents = new List<Document>();
+            Documents = new Dictionary<string, Document>();
             Users = new List<User>();
             Loans = new List<Loan>();
         }
 
         public void AddDocs(Document document)
         {
-            Documents.Add(document);
+            Documents.Add(document.Code, document);
         }
 
         public void AddUsers(User user)
@@ -37,11 +37,11 @@ namespace csharp_biblioteca
         {
             if(!Users.Contains(user))
             {
-                Console.WriteLine("User not registered");
+                Console.WriteLine("User not registered in database");
                 return;
             } 
             
-            if(!Documents.Contains(document))
+            if(!Documents.ContainsKey(document.Code))
             {
                 Console.WriteLine("Document not available");
                 return;
@@ -66,45 +66,34 @@ namespace csharp_biblioteca
         public List<Loan> SearchLoansByUser(string name, string surname)
         {
             var findUserLoan = Loans.FindAll(loan => loan.User.Name.ToLower() == name.ToLower() && loan.User.Surname.ToLower() == surname.ToLower());
-
-            if (findUserLoan.Count > 0)
-            {
-                return findUserLoan;
-            }
-            else
-            {
-                return new List<Loan>();
-            }
+            return findUserLoan;
+            
         }
 
-        public List<Document> SearchDocumentsByCode(string code)
+        public Document SearchDocumentsByCode(string code)
         {
-            var findDocCode = Documents.FindAll(doc => doc.Code.Contains(code, StringComparison.OrdinalIgnoreCase));
-
-            if(findDocCode.Count > 0) 
-            {  
-                return findDocCode; 
-            } else 
-            { 
-                return new List<Document>(); 
-            }
+            var findDocCode = Documents[code];
+            return findDocCode; 
+           
         }
 
         public List<Document> SearchDocumentsByTitle(string title)
         {
-            var findDoc = Documents.FindAll(doc => doc.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+            List<Document> retrievedDocuments = new List<Document>();
 
-            if (findDoc.Count > 0)
+            var listDocument = Documents.Values;
+
+            foreach (var doc in listDocument)
             {
-                return findDoc;
+                if (doc.Title == title)
+                {
+                    retrievedDocuments.Add(doc);
+                }
             }
-            else
-            {
-                return new List<Document>();
-            }
+
+            return retrievedDocuments;
+
         }
-
-
 
     }
 }

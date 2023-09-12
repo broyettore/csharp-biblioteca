@@ -14,7 +14,7 @@ namespace csharp_biblioteca
         public string Password {  get; set; }
         public string PhoneNumber {  get; set; }
 
-        public User(string name, string surname, string password = null, string phoneNumber = null)
+        public User(string name, string surname, string password, string phoneNumber)
         {
             Name = name;
             Surname = surname;

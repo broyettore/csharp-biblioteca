@@ -18,27 +18,29 @@
             User user4 = new("Hera", "Ràmon", "p3Uj89BGcf", "4563456789");
             User user5 = new("Stephen", "King", "fUnd78TJsR", "3465623478");
 
-            Loan loan1 = new(user1, book2, DateTime.Now, DateTime.Now.AddDays(5));
-            Loan loan2 = new(user2, book1, DateTime.Now, DateTime.Now.AddDays(5));
-            Loan loan3 = new(user3, book3, DateTime.Now, DateTime.Now.AddDays(5));
-            Loan loan4 = new(user4, dvd3, DateTime.Now, DateTime.Now.AddDays(5));
-            Loan loan5 = new(user5, dvd2, DateTime.Now, DateTime.Now.AddDays(5));
+            //Loan loan1 = new(user1, book2, DateTime.Now, DateTime.Now.AddDays(5));
+            //Loan loan2 = new(user2, book1, DateTime.Now, DateTime.Now.AddDays(5));
+            //Loan loan3 = new(user3, book3, DateTime.Now, DateTime.Now.AddDays(5));
+            //Loan loan4 = new(user4, dvd3, DateTime.Now, DateTime.Now.AddDays(5));
+            //Loan loan5 = new(user5, dvd2, DateTime.Now, DateTime.Now.AddDays(5));
 
 
             Library library1 = new Library();
             library1.AddUsers(user1);
+            library1.AddUsers(user2);
+            library1.AddUsers(user3);
             library1.AddDocs(dvd1);
-            library1.AddLoan(loan1);
-            library1.RegisterLoan(user1, dvd1, DateTime.Now, DateTime.Now.AddDays(5));
+            library1.AddDocs(dvd2);
+            library1.RegisterLoan(user3, dvd2, DateTime.Now, DateTime.Now.AddDays(5));
 
-            foreach (var item in library1.SearchDocumentsByTitle("rush"))
-            {
-               Console.WriteLine($"Found: {item.Title}");
-            }  
+            var docSearched = library1.SearchDocumentsByCode(dvd1.Code);
+            Console.WriteLine(docSearched);
+            
+              
 
-            foreach (var item in library1.SearchLoansByUser("luis", "icar"))
+            foreach (var item in library1.Documents)
             {
-               Console.WriteLine($"Found: {item.User.Name} {item.User.Surname}");
+               Console.WriteLine(item);
             }  
 
         }
